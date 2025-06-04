@@ -5,7 +5,7 @@ import '../models/crypto_model.dart';
 class CryptoAPI {
   final String _baseUrl =
       'https://pro-api.coinmarketcap.com/v1/cryptocurrency/quotes/latest';
-  final String _apiKey = 'e1009cce-a973-47ac-963d-c13224359646';
+  final String _apiKey = 'APIKEY_AQUI'; // Substitua pela sua chave de API
 
   Future<List<CryptoModel>> getCryptos(List<String> symbols) async {
     // Requisição para USD
