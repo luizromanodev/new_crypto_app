@@ -1,22 +1,29 @@
-import '../../domain/entities/crypto.dart';
+class CryptoModel {
+  final String name;
+  final String symbol;
+  final double priceUsd;
+  final double priceBrl;
+  final DateTime dateAdded;
 
-class CryptoModel extends Crypto {
   CryptoModel({
-    required super.symbol,
-    required super.name,
-    required super.dateAdded,
-    required super.priceUsd,
-    required super.priceBrl,
+    required this.name,
+    required this.symbol,
+    required this.priceUsd,
+    required this.priceBrl,
+    required this.dateAdded,
   });
 
-  factory CryptoModel.fromJson(Map<String, dynamic> json) {
-    final quote = json['quote'];
+  factory CryptoModel.fromCombinedJson(
+    Map<String, dynamic> usdJson,
+    Map<String, dynamic> brlJson,
+  ) {
     return CryptoModel(
-      symbol: json['symbol'],
-      name: json['name'],
-      dateAdded: DateTime.parse(json['date_added']),
-      priceUsd: quote['USD']['price'].toDouble(),
-      priceBrl: quote['BRL']['price'].toDouble(),
+      name: usdJson['name'] ?? '',
+      symbol: usdJson['symbol'] ?? '',
+      priceUsd: (usdJson['quote']?['USD']?['price'] ?? 0).toDouble(),
+      priceBrl: (brlJson['quote']?['BRL']?['price'] ?? 0).toDouble(),
+      dateAdded:
+          DateTime.tryParse(usdJson['date_added'] ?? '') ?? DateTime.now(),
     );
   }
 }
